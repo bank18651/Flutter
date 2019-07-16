@@ -4,9 +4,24 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Flutter build_runner",
+            "label": "Flutter build_runner Json",
             "type": "shell",
             "command": "flutter packages pub run build_runner build"
+        },
+        {
+            "label": "Flutter flavor labs",
+            "type": "shell",
+            "command": "flutter run --flavor labs"
+        },
+        {
+            "label": "Flutter flavor staging",
+            "type": "shell",
+            "command": "flutter run --flavor staging"
+        },
+        {
+            "label": "Flutter flavor prod",
+            "type": "shell",
+            "command": "flutter run --flavor prod"
         }
     ]
 }

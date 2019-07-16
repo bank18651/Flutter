@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import '../../../app_config.dart';
 import '../../authentication_token.dart';
 
 class UserServices {
