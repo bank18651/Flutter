@@ -35,13 +35,24 @@ class _HomePageState extends State<HomePage> {
           future: _viewModel.getFeedItems(),
           builder: (context, snapshot) {
             return snapshot.hasData
-                ? ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) =>
-                        FeatureItemWidget(featureItem: snapshot.data.features[index]),
-                    separatorBuilder: (context, index) =>
-                        Divider(color: Colors.amber, height: 0),
-                    itemCount: snapshot.data.features.length)
+                ? 
+                ListView(
+                  scrollDirection: Axis.vertical,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 100,
+                      child: 
+                      Container(
+                        width: double.infinity,
+                        color: Colors.yellow[50],
+                      child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) =>
+                          FeatureItemWidget(featureItem: snapshot.data.features[index]),
+                      separatorBuilder: (context, index) =>
+                          Divider(color: Colors.amber, height: 0),
+                      itemCount: snapshot.data.features.length)))
+                ])
                 : Center(
                     child: CupertinoActivityIndicator(),
                   );
