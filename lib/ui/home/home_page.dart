@@ -39,12 +39,12 @@ class _HomePageState extends State<HomePage> {
                 .where((e) => e.title.isNotEmpty && e.image.url.isNotEmpty)
                 .toList();
             return snapShot.hasData
-                ? ListView(
+                ? ListView.separated(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 140,
+                    itemBuilder: (context, index) {
+                      return SizedBox(
+                        height: 120,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
@@ -53,9 +53,11 @@ class _HomePageState extends State<HomePage> {
                           ),
                           itemCount: features.length,
                         ),
-                      )
-                    ],
-                  )
+                      );
+                    },
+                    itemCount: 10,
+                    separatorBuilder: (context, index) => Container(
+                        color: Color.fromRGBO(211, 211, 211, 1), height: 10))
                 : Center(
                     child: CupertinoActivityIndicator(),
                   );
