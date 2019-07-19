@@ -15,13 +15,12 @@ class FeatureItemWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
-                  height: 65,
-                  child: AspectRatio(
-                    aspectRatio: 3 / 4,
-                    child: ImgixImageWidget(
-                        imageUrl: featureItem.image.url),
-                  ),
-                ),
+            height: 65,
+            child: AspectRatio(
+              aspectRatio: 3 / 4,
+              child: ImgixImageWidget(imageUrl: featureItem.image.url),
+            ),
+          ),
           SizedBox(height: 6.2),
           Text(
             featureItem.title,

@@ -8,7 +8,7 @@ class HomeViewModel {
   final FeedRepository _feedRepository;
 
   Stream<String> get errorMessage => _errorMessage;
-  
+
   HomeViewModel(this._feedRepository) {
     _errorMessage = PublishSubject();
   }
@@ -18,5 +18,4 @@ class HomeViewModel {
       return feed;
     });
   }
-
 }

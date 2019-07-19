@@ -35,7 +35,9 @@ class _HomePageState extends State<HomePage> {
         body: FutureBuilder<Feed>(
           future: _viewModel.getFeedItems(),
           builder: (context, snapShot) {
-            List<FeedFeature> features = snapShot.data.features.where((e) => e.title.isNotEmpty && e.image.url.isNotEmpty).toList();
+            List<FeedFeature> features = snapShot.data.features
+                .where((e) => e.title.isNotEmpty && e.image.url.isNotEmpty)
+                .toList();
             return snapShot.hasData
                 ? ListView(
                     scrollDirection: Axis.vertical,
