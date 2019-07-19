@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pomelo_flutter/data/feed_feature.dart';
+import 'package:pomelo_flutter/ui/imgix_image_widget.dart';
 
 class FeatureItemWidget extends StatelessWidget {
   final FeedFeature featureItem;
@@ -8,27 +9,26 @@ class FeatureItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    SizedBox(
-      width: 120,
-      height: double.infinity,
-      child: 
-      Container(padding: EdgeInsets.all(10),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(8.5, 18, 8.5, 8),
       child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-      Expanded(
-        flex: 2,
-        child: BlueBox()),
-      Expanded(
-        flex: 1,
-        child: Wrap(
-          children: <Widget>[
-            Text(featureItem.title)
-          ],
-        ))
-    ]))
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Container(
+                  height: 65,
+                  child: AspectRatio(
+                    aspectRatio: 3 / 4,
+                    child: ImgixImageWidget(
+                        imageUrl: featureItem.image.url),
+                  ),
+                ),
+          SizedBox(height: 6.2),
+          Text(
+            featureItem.title,
+            textAlign: TextAlign.center,
+          )
+        ],
+      ),
     );
   }
 }
@@ -37,12 +37,9 @@ class BlueBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        border: Border.all(),
-      ),
+      width: 65,
+      height: 65,
+      color: Colors.red,
     );
   }
 }
