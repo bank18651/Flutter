@@ -17,7 +17,7 @@ class FeatureItemWidget extends StatelessWidget {
           Container(
             height: 65,
             child: AspectRatio(
-              aspectRatio: 3 / 4,
+              aspectRatio: 1,
               child: ImgixImageWidget(imageUrl: featureItem.image.url),
             ),
           ),
