@@ -34,8 +34,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformApp(
-        android: (_) => MaterialAppData(theme: meterialThemeData),
+    return MaterialApp(
+        // android: (_) => MaterialAppData(theme: meterialThemeData),
         title: 'Pomelo Fashion',
         home: FutureBuilder<List<String>>(
             future: Future.wait([_sharedPrefsHelper.getAccessToken()]),

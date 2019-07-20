@@ -1,6 +1,7 @@
 import 'dart:async';
-
+import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:pomelo_flutter/data/feed.dart';
@@ -29,8 +30,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformScaffold(
-        appBar: PlatformAppBar(
+    return Scaffold(
+        appBar: AppBar(
           title: Text("Home"),
         ),
         body: FutureBuilder<Feed>(
@@ -40,25 +41,76 @@ class _HomePageState extends State<HomePage> {
                 .where((e) => e.title.isNotEmpty && e.image.url.isNotEmpty)
                 .toList();
             return snapShot.hasData
-                ? ListView.separated(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return SizedBox(
-                        height: 120,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) => FeatureItemWidget(
-                            featureItem: features[index],
+                ? CustomScrollView(
+                    slivers: <Widget>[
+                      SliverAppBar(
+                        backgroundColor: Colors.green,
+                        expandedHeight: 120.0,
+                        flexibleSpace: FlexibleSpaceBar(
+                          background: SizedBox(
+                            height: 120,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) =>
+                                  FeatureItemWidget(
+                                featureItem: features[index],
+                              ),
+                              itemCount: features.length,
+                            ),
                           ),
-                          itemCount: features.length,
                         ),
-                      );
-                    },
-                    itemCount: 10,
-                    separatorBuilder: (context, index) => Container(
-                        color: Color.fromRGBO(211, 211, 211, 1), height: 10))
+                      ),
+                      SliverPersistentHeader(
+                          pinned: true,
+                          delegate: _SliverAppBarDelegate(
+                              minHeight: 42,
+                              maxHeight: 42,
+                              child: Container(
+                                child: Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 1,
+                                      child: Container(
+                                        height: double.infinity,
+                                        color: Colors.white,
+                                        child: Center(
+                                          child: Text('Discover'.toUpperCase(),
+                                              textAlign: TextAlign.center),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Container(
+                                        height: double.infinity,
+                                        color: Color.fromRGBO(211, 211, 211, 1),
+                                        child: Center(
+                                          child: Text(
+                                            'Lookbooks'.toUpperCase(),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ))),
+                      SliverFixedExtentList(
+                        itemExtent: 150.0,
+                        delegate: SliverChildListDelegate(
+                          [
+                            Container(color: Colors.red),
+                            Container(color: Colors.purple),
+                            Container(color: Colors.green),
+                            Container(color: Colors.orange),
+                            Container(color: Colors.yellow),
+                            Container(color: Colors.pink),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
                 : Center(
                     child: CupertinoActivityIndicator(),
                   );
@@ -74,5 +126,32 @@ class _HomePageState extends State<HomePage> {
             message: message,
           );
         });
+  }
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  _SliverAppBarDelegate({
+    @required this.minHeight,
+    @required this.maxHeight,
+    @required this.child,
+  });
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+  @override
+  double get minExtent => minHeight;
+  @override
+  double get maxExtent => math.max(maxHeight, minHeight);
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return new SizedBox.expand(child: child);
+  }
+
+  @override
+  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
   }
 }
