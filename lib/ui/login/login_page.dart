@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'login_view_model.dart';
 import 'login_navigator.dart';
 import '../../di/injector.dart';
@@ -9,11 +10,9 @@ import '../../di/injector.dart';
 class LoginPage extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
-  
 }
 
 class _LoginState extends State<LoginPage> {
-
   final List<StreamSubscription> _subscriptions = List();
   final FocusNode _usernameFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
@@ -28,8 +27,7 @@ class _LoginState extends State<LoginPage> {
   void initState() {
     super.initState();
     _viewModel = LoginViewModel(LoginNavigator(context),
-    Injector().provideUsersRepository, 
-    Injector().provideSharedPrefsHelper);
+        Injector().provideUsersRepository, Injector().provideSharedPrefsHelper);
     _subscriptions
         .add(_viewModel.loadingVisibility.listen((value) => setState(() {
               _loadingVisibility = value;
@@ -39,7 +37,7 @@ class _LoginState extends State<LoginPage> {
         })));
   }
 
-    @override
+  @override
   void dispose() {
     _subscriptions.clear();
     super.dispose();
@@ -47,11 +45,12 @@ class _LoginState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: 
-      AppBar(title: Text("Login"),
+    return PlatformScaffold(
+      appBar: PlatformAppBar(
+        title: Text("Login"),
       ),
-      body: 
-      SafeArea(child: Column(
+      body: SafeArea(
+        child: Column(
           children: <Widget>[
             Expanded(
                 flex: 1,
@@ -146,8 +145,7 @@ class _LoginState extends State<LoginPage> {
                 )),
           ],
         ),
-        ),
-      );
+      ),
+    );
   }
-
 }

@@ -35,6 +35,8 @@ dependencies:
   shared_preferences: ^0.5.2
   # Json Serialization
   json_annotation: ^2.4.0
+  # Flutter Platform Widgets
+  flutter_platform_widgets: ^0.12.0
 
 dev_dependencies:
   flutter_test:

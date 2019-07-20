@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:pomelo_flutter/data/feed.dart';
 import 'package:pomelo_flutter/data/feed_feature.dart';
 import 'package:pomelo_flutter/di/injector.dart';
@@ -28,8 +29,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
+    return PlatformScaffold(
+        appBar: PlatformAppBar(
           title: Text("Home"),
         ),
         body: FutureBuilder<Feed>(
