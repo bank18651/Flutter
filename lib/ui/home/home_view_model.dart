@@ -29,16 +29,18 @@ class HomeViewModel {
   }
 
   FeedTab getFeedTab() {
-    return FeedTab(isFeed, onFeedClicked, onLookbookClicked);
+    return FeedTab(isFeed, 
+    () => this._onFeedClicked(), 
+    () => this._onLookbookClicked());
   }
 
-  void onFeedClicked() {
+  void _onFeedClicked() {
     print('_onFeedClicked');
     isFeed = true;
     _feedTab.add(getFeedTab());
   }
 
-  void onLookbookClicked() {
+  void _onLookbookClicked() {
     print('_onLookbookClicked');
     isFeed = true;
     _feedTab.add(getFeedTab());

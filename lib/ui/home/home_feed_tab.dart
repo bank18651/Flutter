@@ -12,9 +12,9 @@ class FeedTab {
 }
 
 class FeedTabWidget extends StatefulWidget {
-  final HomeViewModel viewModel;
+  final FeedTab feedTab;
 
-  FeedTabWidget({Key key, @required this.viewModel}) : super(key: key);
+  FeedTabWidget({Key key, @required this.feedTab}) : super(key: key);
 
   @override
   _FeedTabState createState() => _FeedTabState();
@@ -33,11 +33,11 @@ class _FeedTabState extends State<FeedTabWidget> {
                 children: <Widget>[
                   Expanded(
                     flex: 1,
-                    child: GestureDetector(
-                      onTap: () => widget.viewModel.onFeedClicked(),
+                    child: RaisedButton(
+                      onPressed: () => widget.feedTab.onFeedClicked(),
                       child: Container(
                         height: double.infinity,
-                        color: widget.viewModel.isFeed
+                        color: widget.feedTab.isFeed
                             ? Colors.white
                             : Color.fromRGBO(211, 211, 211, 1),
                         child: Center(
@@ -49,11 +49,11 @@ class _FeedTabState extends State<FeedTabWidget> {
                   ),
                   Expanded(
                     flex: 1,
-                    child: GestureDetector(
-                      onTap: () => widget.viewModel.onLookbookClicked(),
+                    child: InkWell(
+                      onTap: () => widget.feedTab.onLookbookClicked(),
                       child: Container(
                         height: double.infinity,
-                        color: !widget.viewModel.isFeed
+                        color: !widget.feedTab.isFeed
                             ? Colors.white
                             : Color.fromRGBO(211, 211, 211, 1),
                         child: Center(

@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      FeedTabWidget(viewModel: _viewModel),
+                      FeedTabWidget(feedTab: _renderFeedTab),
                       SliverFixedExtentList(
                         itemExtent: 150.0,
                         delegate: SliverChildListDelegate(
