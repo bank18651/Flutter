@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:pomelo_flutter/ui/home/home_view_model.dart';
+
 class FeedTab {
   final isFeed;
   final void Function() onFeedClicked;
@@ -10,9 +12,9 @@ class FeedTab {
 }
 
 class FeedTabWidget extends StatefulWidget {
-  final FeedTab feedTab;
+  final HomeViewModel viewModel;
 
-  FeedTabWidget({Key key, @required this.feedTab}) : super(key: key);
+  FeedTabWidget({Key key, @required this.viewModel}) : super(key: key);
 
   @override
   _FeedTabState createState() => _FeedTabState();
@@ -32,10 +34,10 @@ class _FeedTabState extends State<FeedTabWidget> {
                   Expanded(
                     flex: 1,
                     child: GestureDetector(
-                      onTap: () => widget.feedTab.onFeedClicked,
+                      onTap: () => widget.viewModel.onFeedClicked(),
                       child: Container(
                         height: double.infinity,
-                        color: widget.feedTab.isFeed
+                        color: widget.viewModel.isFeed
                             ? Colors.white
                             : Color.fromRGBO(211, 211, 211, 1),
                         child: Center(
@@ -48,10 +50,10 @@ class _FeedTabState extends State<FeedTabWidget> {
                   Expanded(
                     flex: 1,
                     child: GestureDetector(
-                      onTap: () => widget.feedTab.onLookbookClicked,
+                      onTap: () => widget.viewModel.onLookbookClicked(),
                       child: Container(
                         height: double.infinity,
-                        color: !widget.feedTab.isFeed
+                        color: !widget.viewModel.isFeed
                             ? Colors.white
                             : Color.fromRGBO(211, 211, 211, 1),
                         child: Center(

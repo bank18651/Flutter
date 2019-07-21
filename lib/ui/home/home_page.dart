@@ -9,6 +9,7 @@ import 'package:pomelo_flutter/data/feed_feature.dart';
 import 'package:pomelo_flutter/di/injector.dart';
 import 'package:pomelo_flutter/ui/error_dialog.dart';
 import 'package:pomelo_flutter/ui/home/home_feature_widget.dart';
+import 'package:pomelo_flutter/ui/home/home_feed_tab.dart';
 import 'package:pomelo_flutter/ui/home/home_view_model.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,13 +20,27 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   HomeViewModel _viewModel;
   List<StreamSubscription> _subscriptions = List();
+  FeedTab _renderFeedTab;
 
   @override
   void initState() {
     super.initState();
+    print('Test log');
     _viewModel = HomeViewModel(Injector().provideFeedRepository);
     _subscriptions.add(
         _viewModel.errorMessage.listen((message) => _showErrorDialog(message)));
+    _subscriptions
+        .add(_viewModel.renderFeedTab.listen((FeedTab rednderFeedTab) {
+      setState(() {
+        _renderFeedTab = rednderFeedTab;
+      });
+    }));
+  }
+
+  @override
+  void dispose() {
+    _subscriptions.clear();
+    super.dispose();
   }
 
   @override
@@ -61,41 +76,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      SliverPersistentHeader(
-                          pinned: true,
-                          delegate: _SliverAppBarDelegate(
-                              minHeight: 42,
-                              maxHeight: 42,
-                              child: Container(
-                                child: Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 1,
-                                      child: Container(
-                                        height: double.infinity,
-                                        color: Colors.white,
-                                        child: Center(
-                                          child: Text('Discover'.toUpperCase(),
-                                              textAlign: TextAlign.center),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Container(
-                                        height: double.infinity,
-                                        color: Color.fromRGBO(211, 211, 211, 1),
-                                        child: Center(
-                                          child: Text(
-                                            'Lookbooks'.toUpperCase(),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ))),
+                      FeedTabWidget(viewModel: _viewModel),
                       SliverFixedExtentList(
                         itemExtent: 150.0,
                         delegate: SliverChildListDelegate(
@@ -129,29 +110,29 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  _SliverAppBarDelegate({
-    @required this.minHeight,
-    @required this.maxHeight,
-    @required this.child,
-  });
-  final double minHeight;
-  final double maxHeight;
-  final Widget child;
-  @override
-  double get minExtent => minHeight;
-  @override
-  double get maxExtent => math.max(maxHeight, minHeight);
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return new SizedBox.expand(child: child);
-  }
+// class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+//   _SliverAppBarDelegate({
+//     @required this.minHeight,
+//     @required this.maxHeight,
+//     @required this.child,
+//   });
+//   final double minHeight;
+//   final double maxHeight;
+//   final Widget child;
+//   @override
+//   double get minExtent => minHeight;
+//   @override
+//   double get maxExtent => math.max(maxHeight, minHeight);
+//   @override
+//   Widget build(
+//       BuildContext context, double shrinkOffset, bool overlapsContent) {
+//     return new SizedBox.expand(child: child);
+//   }
 
-  @override
-  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
-    return maxHeight != oldDelegate.maxHeight ||
-        minHeight != oldDelegate.minHeight ||
-        child != oldDelegate.child;
-  }
-}
+//   @override
+//   bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+//     return maxHeight != oldDelegate.maxHeight ||
+//         minHeight != oldDelegate.minHeight ||
+//         child != oldDelegate.child;
+//   }
+// }

@@ -11,7 +11,7 @@
         {
             "label": "Flutter flavor labs",
             "type": "shell",
-            "command": "flutter run --flavor labs"
+            "command": "flutter run --flavor labs --debug"
         },
         {
             "label": "Flutter flavor staging",
