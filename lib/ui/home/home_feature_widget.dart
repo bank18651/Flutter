@@ -31,14 +31,3 @@ class FeatureItemWidget extends StatelessWidget {
     );
   }
 }
-
-class BlueBox extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 65,
-      height: 65,
-      color: Colors.red,
-    );
-  }
-}
