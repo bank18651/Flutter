@@ -10,16 +10,11 @@ class HomeViewModel {
 
   Stream<String> get errorMessage => _errorMessage;
 
-  PublishSubject<FeedTab> _feedTab = PublishSubject();
-
-  Stream<FeedTab> get renderFeedTab => _feedTab;
-  bool isFeed = true;
-  FeedTab test;
+  PublishSubject<bool> _isFeed = PublishSubject();
+  Stream<bool> get isFeed => _isFeed;
 
   HomeViewModel(this._feedRepository) {
     _errorMessage = PublishSubject();
-    _feedTab.add(getFeedTab());
-    test = getFeedTab();
   }
 
   Future<Feed> getFeedItems() {
@@ -28,23 +23,10 @@ class HomeViewModel {
     });
   }
 
-  FeedTab getFeedTab() {
-    return FeedTab(isFeed, 
-    () => this._onFeedClicked(), 
-    () => this._onLookbookClicked());
-  }
-
-  void _onFeedClicked() {
+  void onFeedTabClicked(bool isFeed) {
     print('_onFeedClicked');
-    isFeed = true;
-    _feedTab.add(getFeedTab());
+    _isFeed.add(isFeed);
+    // _feedTab.add(getFeedTab());
   }
-
-  void _onLookbookClicked() {
-    print('_onLookbookClicked');
-    isFeed = true;
-    _feedTab.add(getFeedTab());
-  }
-
 
 }

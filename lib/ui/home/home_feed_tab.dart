@@ -1,26 +1,39 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:pomelo_flutter/ui/home/home_view_model.dart';
 
-class FeedTab {
-  final isFeed;
-  final void Function() onFeedClicked;
-  final void Function() onLookbookClicked;
-
-  FeedTab(this.isFeed,this.onFeedClicked,this.onLookbookClicked);
-}
 
 class FeedTabWidget extends StatefulWidget {
-  final FeedTab feedTab;
+  final HomeViewModel viewModel;
 
-  FeedTabWidget({Key key, @required this.feedTab}) : super(key: key);
+  FeedTabWidget({Key key, @required this.viewModel}) : super(key: key);
 
   @override
   _FeedTabState createState() => _FeedTabState();
-}
+  }
 
 class _FeedTabState extends State<FeedTabWidget> {
+  List<StreamSubscription> _subscriptions = List();
+  bool _isFeed = true;
+
+  @override
+  void dispose() {
+    _subscriptions.clear();
+    super.dispose();
+  }
+
+@override
+  void initState() {
+    super.initState();
+    _subscriptions.add(
+      widget.viewModel.isFeed.listen((isFeed) => 
+      _isFeed = isFeed
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SliverPersistentHeader(
@@ -34,10 +47,10 @@ class _FeedTabState extends State<FeedTabWidget> {
                   Expanded(
                     flex: 1,
                     child: RaisedButton(
-                      onPressed: () => widget.feedTab.onFeedClicked(),
+                      onPressed: () => widget.viewModel.onFeedTabClicked(true),
                       child: Container(
                         height: double.infinity,
-                        color: widget.feedTab.isFeed
+                        color: _isFeed
                             ? Colors.white
                             : Color.fromRGBO(211, 211, 211, 1),
                         child: Center(
@@ -50,10 +63,10 @@ class _FeedTabState extends State<FeedTabWidget> {
                   Expanded(
                     flex: 1,
                     child: InkWell(
-                      onTap: () => widget.feedTab.onLookbookClicked(),
+                      onTap: () => widget.viewModel.onFeedTabClicked(false),
                       child: Container(
                         height: double.infinity,
-                        color: !widget.feedTab.isFeed
+                        color: _isFeed
                             ? Colors.white
                             : Color.fromRGBO(211, 211, 211, 1),
                         child: Center(

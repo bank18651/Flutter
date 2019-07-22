@@ -20,7 +20,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   HomeViewModel _viewModel;
   List<StreamSubscription> _subscriptions = List();
-  FeedTab _renderFeedTab;
 
   @override
   void initState() {
@@ -29,12 +28,6 @@ class _HomePageState extends State<HomePage> {
     _viewModel = HomeViewModel(Injector().provideFeedRepository);
     _subscriptions.add(
         _viewModel.errorMessage.listen((message) => _showErrorDialog(message)));
-    _subscriptions
-        .add(_viewModel.renderFeedTab.listen((FeedTab rednderFeedTab) {
-      setState(() {
-        _renderFeedTab = rednderFeedTab;
-      });
-    }));
   }
 
   @override
@@ -52,11 +45,11 @@ class _HomePageState extends State<HomePage> {
         body: FutureBuilder<Feed>(
           future: _viewModel.getFeedItems(),
           builder: (context, snapShot) {
-            List<FeedFeature> features = snapShot.data.features
-                .where((e) => e.title.isNotEmpty && e.image.url.isNotEmpty)
-                .toList();
-            return snapShot.hasData
-                ? CustomScrollView(
+            if (snapShot.hasData) {
+              List<FeedFeature> features = snapShot.data.features
+                  .where((e) => e.title.isNotEmpty && e.image.url.isNotEmpty)
+                  .toList();
+                  return CustomScrollView(
                     slivers: <Widget>[
                       SliverAppBar(
                         backgroundColor: Colors.green,
@@ -76,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      FeedTabWidget(feedTab: _renderFeedTab),
+                      FeedTabWidget(viewModel: _viewModel),
                       SliverFixedExtentList(
                         itemExtent: 150.0,
                         delegate: SliverChildListDelegate(
@@ -91,8 +84,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ],
-                  )
-                : Center(
+                  );
+            }
+            return Center(
                     child: CupertinoActivityIndicator(),
                   );
           },
