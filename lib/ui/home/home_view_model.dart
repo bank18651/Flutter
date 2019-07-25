@@ -23,9 +23,10 @@ class HomeViewModel {
     });
   }
 
-  void onFeedTabClicked(bool isFeed) {
-    print('_onFeedClicked');
-    _isFeed.add(isFeed);
+  void onFeedTabClicked(bool value) {
+    print('_onFeedClicked $value');
+
+    _isFeed.add(value);
     // _feedTab.add(getFeedTab());
   }
 

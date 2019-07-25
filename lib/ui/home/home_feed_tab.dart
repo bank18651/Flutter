@@ -28,9 +28,14 @@ class _FeedTabState extends State<FeedTabWidget> {
 @override
   void initState() {
     super.initState();
+    
     _subscriptions.add(
-      widget.viewModel.isFeed.listen((isFeed) => 
-      _isFeed = isFeed
+      widget.viewModel.isFeed.listen((isFeed) {
+        print('listen valuessss = $isFeed');
+        setState(() {
+          _isFeed = isFeed;
+        });
+      }
     ));
   }
 
@@ -46,8 +51,8 @@ class _FeedTabState extends State<FeedTabWidget> {
                 children: <Widget>[
                   Expanded(
                     flex: 1,
-                    child: RaisedButton(
-                      onPressed: () => widget.viewModel.onFeedTabClicked(true),
+                    child: InkWell(
+                      onTap: () => widget.viewModel.onFeedTabClicked(true),
                       child: Container(
                         height: double.infinity,
                         color: _isFeed
@@ -66,7 +71,7 @@ class _FeedTabState extends State<FeedTabWidget> {
                       onTap: () => widget.viewModel.onFeedTabClicked(false),
                       child: Container(
                         height: double.infinity,
-                        color: _isFeed
+                        color: !_isFeed
                             ? Colors.white
                             : Color.fromRGBO(211, 211, 211, 1),
                         child: Center(
