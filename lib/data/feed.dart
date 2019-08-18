@@ -8,6 +8,7 @@ part 'feed.g.dart';
 class Feed {
   @JsonKey(name: 'featured')
   final List<FeedFeature> features;
+  @JsonKey(name: 'feeds')
   final List<FeedItem> feedItems;
 
   Feed(

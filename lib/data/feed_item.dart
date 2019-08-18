@@ -32,4 +32,13 @@ class FeedItem {
       _$FeedItemFromJson(json);
 
   Map<String, dynamic> toJson() => _$FeedItemToJson(this);
+
+  static const feedSqureType = 'square';
+  static const feedCollectionType = 'landscape';
+  static const feedLandscapeType = 'collection';
+  static const feedGalleryType = 'gallery';
+  static const feedPromotionType = 'promotion';
+  static const feedUSPType = 'usp';
 }
+
+

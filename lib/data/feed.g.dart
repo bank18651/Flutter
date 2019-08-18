@@ -13,7 +13,7 @@ Feed _$FeedFromJson(Map<String, dynamic> json) {
               ? null
               : FeedFeature.fromJson(e as Map<String, dynamic>))
           ?.toList(),
-      (json['feedItems'] as List)
+      (json['feeds'] as List)
           ?.map((e) =>
               e == null ? null : FeedItem.fromJson(e as Map<String, dynamic>))
           ?.toList());
@@ -21,5 +21,5 @@ Feed _$FeedFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$FeedToJson(Feed instance) => <String, dynamic>{
       'featured': instance.features,
-      'feedItems': instance.feedItems
+      'feeds': instance.feedItems
     };

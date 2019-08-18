@@ -6,11 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:pomelo_flutter/data/feed.dart';
 import 'package:pomelo_flutter/data/feed_feature.dart';
+import 'package:pomelo_flutter/data/feed_item.dart';
 import 'package:pomelo_flutter/di/injector.dart';
 import 'package:pomelo_flutter/ui/error_dialog.dart';
 import 'package:pomelo_flutter/ui/home/home_feature_widget.dart';
 import 'package:pomelo_flutter/ui/home/home_feed_tab.dart';
 import 'package:pomelo_flutter/ui/home/home_view_model.dart';
+
+import 'home_feed_usp.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -49,46 +52,48 @@ class _HomePageState extends State<HomePage> {
               List<FeedFeature> features = snapShot.data.features
                   .where((e) => e.title.isNotEmpty && e.image.url.isNotEmpty)
                   .toList();
-                  return CustomScrollView(
-                    slivers: <Widget>[
-                      SliverAppBar(
-                        backgroundColor: Colors.green,
-                        expandedHeight: 120.0,
-                        flexibleSpace: FlexibleSpaceBar(
-                          background: SizedBox(
-                            height: 120,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) =>
-                                  FeatureItemWidget(
-                                featureItem: features[index],
-                              ),
-                              itemCount: features.length,
-                            ),
+              List<FeedItem> feedItems = snapShot.data.feedItems.toList();
+              return CustomScrollView(
+                slivers: <Widget>[
+                  SliverAppBar(
+                    backgroundColor: Colors.white,
+                    expandedHeight: 120.0,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: SizedBox(
+                        height: 120,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) => FeatureItemWidget(
+                            featureItem: features[index],
                           ),
+                          itemCount: features.length,
                         ),
                       ),
-                      FeedTabWidget(viewModel: _viewModel),
-                      SliverFixedExtentList(
-                        itemExtent: 150.0,
-                        delegate: SliverChildListDelegate(
-                          [
-                            Container(color: Colors.red),
-                            Container(color: Colors.purple),
-                            Container(color: Colors.green),
-                            Container(color: Colors.orange),
-                            Container(color: Colors.yellow),
-                            Container(color: Colors.pink),
-                          ],
-                        ),
-                      ),
-                    ],
-                  );
+                    ),
+                  ),
+                  FeedTabWidget(viewModel: _viewModel),
+                  SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      final item = feedItems[index];
+                      if (item.itemType.toLowerCase() == FeedItem.feedUSPType) {
+                        return FeedUSPWidget(
+                          feedItem: item,
+                        );
+                      }
+                      return Container(
+                        height: 0,
+                      );
+                    },
+                    childCount: feedItems.length,
+                  ))
+                ],
+              );
             }
             return Center(
-                    child: CupertinoActivityIndicator(),
-                  );
+              child: CupertinoActivityIndicator(),
+            );
           },
         ));
   }
