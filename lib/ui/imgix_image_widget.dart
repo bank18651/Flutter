@@ -21,9 +21,7 @@ class ImgixImageWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         image: imageProvider,
-                        fit: BoxFit.cover,
-                        colorFilter:
-                            ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
+                        fit: BoxFit.cover),
                   ),
                 ),
             errorWidget: (context, url, error) => Icon(Icons.error));
