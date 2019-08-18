@@ -8,8 +8,10 @@ part 'feed_item.g.dart';
 class FeedItem {
   @JsonKey(name: 'type')
   final String itemType;
+  @JsonKey(includeIfNull: true)
   final String title;
   @JsonKey(name: 'description')
+  @JsonKey(includeIfNull: true)
   final String feedDescription;
   @JsonKey(name: 'promocode')
   final String promotionCode;
@@ -34,8 +36,8 @@ class FeedItem {
   Map<String, dynamic> toJson() => _$FeedItemToJson(this);
 
   static const feedSqureType = 'square';
-  static const feedCollectionType = 'landscape';
-  static const feedLandscapeType = 'collection';
+  static const feedCollectionType = 'collection';
+  static const feedLandscapeType = 'landscape';
   static const feedGalleryType = 'gallery';
   static const feedPromotionType = 'promotion';
   static const feedUSPType = 'usp';

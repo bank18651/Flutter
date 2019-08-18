@@ -10,6 +10,9 @@ import 'package:pomelo_flutter/data/feed_item.dart';
 import 'package:pomelo_flutter/di/injector.dart';
 import 'package:pomelo_flutter/ui/error_dialog.dart';
 import 'package:pomelo_flutter/ui/home/home_feature_widget.dart';
+import 'package:pomelo_flutter/ui/home/home_feed_landscape.dart';
+import 'package:pomelo_flutter/ui/home/home_feed_promotion.dart';
+import 'package:pomelo_flutter/ui/home/home_feed_square.dart';
 import 'package:pomelo_flutter/ui/home/home_feed_tab.dart';
 import 'package:pomelo_flutter/ui/home/home_view_model.dart';
 
@@ -81,6 +84,12 @@ class _HomePageState extends State<HomePage> {
                         return FeedUSPWidget(
                           feedItem: item,
                         );
+                      } else if (item.itemType.toLowerCase() == FeedItem.feedSqureType) {
+                        return FeedSquareWidget(feedItem: item,);
+                      } else if (item.itemType.toLowerCase() == FeedItem.feedLandscapeType) {
+                        return FeedLandScapeWidget(feedItem: item,);
+                      } else if (item.itemType.toLowerCase() == FeedItem.feedPromotionType) {
+                        return FeedPromotionWidget(feedItem: item,);
                       }
                       return Container(
                         height: 0,
