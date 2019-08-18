@@ -9,12 +9,16 @@ class FeedUSPWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: AspectRatio(
-        aspectRatio: 375 / 81,
-        child: ImgixImageWidget(imageUrl: feedItem.image.url),
-      ),
+    return Column(
+      children: <Widget>[
+        Container(
+          child: AspectRatio(
+            aspectRatio: 375 / 81,
+            child: ImgixImageWidget(imageUrl: feedItem.image.url),
+          ),
 //    height: uspImageHeight,
+        ),
+        Container(height: 10,color: Colors.grey[400],)],
     );
   }
 }

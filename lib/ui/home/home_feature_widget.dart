@@ -25,7 +25,7 @@ class FeatureItemWidget extends StatelessWidget {
           Text(
             featureItem.title,
             textAlign: TextAlign.center,
-          )
+          ),
         ],
       ),
     );
