@@ -15,6 +15,7 @@ import 'package:pomelo_flutter/ui/home/home_feed_promotion.dart';
 import 'package:pomelo_flutter/ui/home/home_feed_square.dart';
 import 'package:pomelo_flutter/ui/home/home_feed_tab.dart';
 import 'package:pomelo_flutter/ui/home/home_view_model.dart';
+import 'package:pomelo_flutter/app_route.dart';
 
 import 'home_feed_usp.dart';
 
@@ -68,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
                           itemBuilder: (context, index) => GestureDetector(
-                            onTap: () => _goToCategoryDetail(features[index].cta.id),
+                            onTap: () => _goToCategoryDetail(context, features[index].cta.id),
                             child:  FeatureItemWidget(
                               featureItem: features[index],
                             ),
@@ -110,7 +111,8 @@ class _HomePageState extends State<HomePage> {
         ));
   }
   
-  _goToCategoryDetail(int id) {
+  _goToCategoryDetail(BuildContext context, int id) {
+    Navigator.of(context).pushNamed(AppRoute.categoryDetail, arguments: id);
     print(id);
   }
 

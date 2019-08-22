@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pomelo_flutter/data/image.dart';
-import 'package:pomelo_flutter/data/feed_cta.dart';
+import 'package:pomelo_flutter/data/feed/feed_cta.dart';
 
 part 'feed_feature.g.dart';
 

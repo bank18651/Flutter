@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-part 'feed_cta.g.dart';
+part 'package:pomelo_flutter/data/feed/feed_cta.g.dart';
 
 @JsonSerializable()
 class FeedCTA {
