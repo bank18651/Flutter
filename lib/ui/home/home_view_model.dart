@@ -1,4 +1,4 @@
-import 'package:pomelo_flutter/data/feed.dart';
+import 'package:pomelo_flutter/data/feed/feed.dart';
 import 'package:pomelo_flutter/data/source/feed_repository.dart';
 import 'package:pomelo_flutter/ui/home/home_feed_tab.dart';
 import 'package:rxdart/rxdart.dart';
