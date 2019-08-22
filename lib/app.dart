@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:pomelo_flutter/ui/home/home_page.dart';
+import 'package:pomelo_flutter/ui/Category/category_detail.dart';
 import 'di/injector.dart';
 import 'ui/login/login_page.dart';
 import 'shared_prefs_helper.dart';
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           AppRoute.login: (context) => LoginPage(),
           AppRoute.home: (context) => HomePage(),
+          AppRoute.categoryDetail: (context) => CategoryDetailPage(),
         });
   }
 }

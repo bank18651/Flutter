@@ -67,8 +67,11 @@ class _HomePageState extends State<HomePage> {
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
-                          itemBuilder: (context, index) => FeatureItemWidget(
-                            featureItem: features[index],
+                          itemBuilder: (context, index) => GestureDetector(
+                            onTap: () => _goToCategoryDetail(features[index].cta.id),
+                            child:  FeatureItemWidget(
+                              featureItem: features[index],
+                            ),
                           ),
                           itemCount: features.length,
                         ),
@@ -105,6 +108,10 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ));
+  }
+  
+  _goToCategoryDetail(int id) {
+    print(id);
   }
 
   void _showErrorDialog(String message) {

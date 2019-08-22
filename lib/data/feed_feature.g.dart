@@ -11,8 +11,15 @@ FeedFeature _$FeedFeatureFromJson(Map<String, dynamic> json) {
       json['title'] as String,
       json['image'] == null
           ? null
-          : Image.fromJson(json['image'] as Map<String, dynamic>));
+          : Image.fromJson(json['image'] as Map<String, dynamic>),
+      json['cta'] == null
+          ? null
+          : FeedCTA.fromJson(json['cta'] as Map<String, dynamic>));
 }
 
 Map<String, dynamic> _$FeedFeatureToJson(FeedFeature instance) =>
-    <String, dynamic>{'title': instance.title, 'image': instance.image};
+    <String, dynamic>{
+      'title': instance.title,
+      'image': instance.image,
+      'cta': instance.cta
+    };
