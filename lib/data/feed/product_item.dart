@@ -4,7 +4,7 @@ import 'package:pomelo_flutter/data/feed/product_badge.dart';
 import 'package:pomelo_flutter/data/feed/product_price.dart';
 import 'package:pomelo_flutter/data/feed/product_stock.dart';
 
-part 'package:pomelo_flutter/data/feed/product_item.g.dart';
+part 'product_item.g.dart';
 
 @JsonSerializable()
 class ProductItem {

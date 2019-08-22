@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:pomelo_flutter/data/feed/feed_feature.dart';
 import 'package:pomelo_flutter/data/feed/feed_item.dart';
 
-part 'package:pomelo_flutter/data/feed/feed.g.dart';
+part 'feed.g.dart';
 
 @JsonSerializable()
 class Feed {

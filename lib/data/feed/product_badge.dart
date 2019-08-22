@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'package:pomelo_flutter/data/feed/product_badge.g.dart';
+part 'product_badge.g.dart';
 
 @JsonSerializable()
 class ProductBadge {

@@ -3,7 +3,7 @@ import 'package:pomelo_flutter/data/image.dart';
 import 'package:pomelo_flutter/data/feed/product_item.dart';
 import 'package:pomelo_flutter/data/video.dart';
 
-part 'package:pomelo_flutter/data/feed/feed_item.g.dart';
+part 'feed_item.g.dart';
 
 @JsonSerializable()
 class FeedItem {
@@ -20,7 +20,8 @@ class FeedItem {
   final String promotionTerms;
   final Image image;
   final Video video;
-  final ProductItem productItem;
+  @JsonKey(name: 'products', defaultValue: [])
+  final List<ProductItem> productItem;
 
   FeedItem(this.itemType, this.title, this.feedDescription, this.promotionCode,
       this.promotionTerms, this.image, this.video, this.productItem);
