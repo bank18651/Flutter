@@ -6,8 +6,10 @@ part 'image.g.dart';
 class Image {
   @JsonKey(name: 'path')
   final String url;
+  @JsonKey(name: 'cover_image_path')
+  final String coverImagePath;
 
-  Image(this.url);
+  Image(this.url, this.coverImagePath);
 
   factory Image.fromJson(Map<String, dynamic> json) => _$ImageFromJson(json);
 

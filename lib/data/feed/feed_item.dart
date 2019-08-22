@@ -1,8 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:pomelo_flutter/data/feed_feature.dart';
 import 'package:pomelo_flutter/data/image.dart';
+import 'package:pomelo_flutter/data/feed/product_item.dart';
+import 'package:pomelo_flutter/data/video.dart';
 
-part 'feed_item.g.dart';
+part 'package:pomelo_flutter/data/feed/feed_item.g.dart';
 
 @JsonSerializable()
 class FeedItem {
@@ -18,17 +19,11 @@ class FeedItem {
   @JsonKey(name: 'terms')
   final String promotionTerms;
   final Image image;
-  final String videoPath;
+  final Video video;
+  final ProductItem productItem;
 
-  FeedItem(
-      this.itemType,
-      this.title,
-      this.feedDescription,
-      this.promotionCode,
-      this.promotionTerms,
-      this.image,
-      this.videoPath,
-      );
+  FeedItem(this.itemType, this.title, this.feedDescription, this.promotionCode,
+      this.promotionTerms, this.image, this.video, this.productItem);
 
   factory FeedItem.fromJson(Map<String, dynamic> json) =>
       _$FeedItemFromJson(json);
@@ -42,5 +37,3 @@ class FeedItem {
   static const feedPromotionType = 'promotion';
   static const feedUSPType = 'usp';
 }
-
-

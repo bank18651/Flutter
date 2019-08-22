@@ -1,4 +1,4 @@
-import 'package:pomelo_flutter/data/feed.dart';
+import 'package:pomelo_flutter/data/feed/feed.dart';
 import 'package:pomelo_flutter/data/source/api/feed_services.dart';
 
 import 'feed_data_source.dart';

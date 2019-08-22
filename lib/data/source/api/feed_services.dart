@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../../feed.dart';
+import 'package:pomelo_flutter/data/feed/feed.dart';
 
 class FeedServices {
   final Dio _httpClient;

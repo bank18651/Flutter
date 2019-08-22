@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pomelo_flutter/data/feed_feature.dart';
+import 'package:pomelo_flutter/data/feed/feed_feature.dart';
 import 'package:pomelo_flutter/ui/imgix_image_widget.dart';
 
 class FeatureItemWidget extends StatelessWidget {
