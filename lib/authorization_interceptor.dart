@@ -17,6 +17,7 @@ class AuthorizationInterceptor extends Interceptor {
     final String accessToken = await _sharedPrefsHelper.getAccessToken();
     if (accessToken?.isNotEmpty == true) {
       options.headers['authorization'] = 'bearer $accessToken';
+      options.headers['x-platform'] = 'IOS 1.11.9';
       print('Attached access token to headers successfully');
       print('bearer $accessToken');
     }

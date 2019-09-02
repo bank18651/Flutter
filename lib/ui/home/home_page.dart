@@ -7,6 +7,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:pomelo_flutter/data/feed/feed.dart';
 import 'package:pomelo_flutter/data/feed/feed_feature.dart';
 import 'package:pomelo_flutter/data/feed/feed_item.dart';
+import 'package:pomelo_flutter/data/feed/feed_lookbook_item.dart';
 import 'package:pomelo_flutter/di/injector.dart';
 import 'package:pomelo_flutter/ui/error_dialog.dart';
 import 'package:pomelo_flutter/ui/home/home_feature_widget.dart';
@@ -16,7 +17,7 @@ import 'package:pomelo_flutter/ui/home/home_feed_square.dart';
 import 'package:pomelo_flutter/ui/home/home_feed_tab.dart';
 import 'package:pomelo_flutter/ui/home/home_view_model.dart';
 import 'package:pomelo_flutter/app_route.dart';
-
+import 'package:pomelo_flutter/ui/home/home_lookbook_widget.dart';
 import 'home_feed_usp.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,6 +28,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   HomeViewModel _viewModel;
   List<StreamSubscription> _subscriptions = List();
+  bool _isFeed = true;
 
   @override
   void initState() {
@@ -35,6 +37,7 @@ class _HomePageState extends State<HomePage> {
     _viewModel = HomeViewModel(Injector().provideFeedRepository);
     _subscriptions.add(
         _viewModel.errorMessage.listen((message) => _showErrorDialog(message)));
+    _subscriptions.add(_viewModel.isFeed.listen((isFeed) => _setFeedState(isFeed)));
   }
 
   @override
@@ -57,6 +60,7 @@ class _HomePageState extends State<HomePage> {
                   .where((e) => e.title.isNotEmpty && e.image.url.isNotEmpty)
                   .toList();
               List<FeedItem> feedItems = snapShot.data.feedItems.toList();
+              List<FeedLookbookItem> lookbookItems = snapShot.data.collections == null ? [] : snapShot.data.collections.toList();
               return CustomScrollView(
                 slivers: <Widget>[
                   SliverAppBar(
@@ -80,6 +84,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   FeedTabWidget(viewModel: _viewModel),
+                  _isFeed ?
                   SliverList(
                       delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
@@ -100,7 +105,14 @@ class _HomePageState extends State<HomePage> {
                       );
                     },
                     childCount: feedItems.length,
-                  ))
+                  )) : SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                            (BuildContext context, int index) {
+                              FeedLookbookItem lookbook = lookbookItems[index];
+                          return HomeLookbookWidget(lookbook);
+                        },
+                        childCount: lookbookItems.length,
+                      ))
                 ],
               );
             }
@@ -110,7 +122,13 @@ class _HomePageState extends State<HomePage> {
           },
         ));
   }
-  
+
+  _setFeedState(bool isFeed) {
+    setState(() {
+      _isFeed = isFeed;
+    });
+  }
+
   _goToCategoryDetail(BuildContext context, int id) {
     Navigator.of(context).pushNamed(AppRoute.categoryDetail, arguments: id);
     print(id);
