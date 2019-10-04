@@ -14,13 +14,14 @@ class ProductItem {
   final ProductStock stock;
   @JsonKey(name: 'is_back_in_stock', defaultValue: false)
   final bool isBackInStock;
-  final ProductPrice price;
+  @JsonKey(includeIfNull: false)
+  final ProductPrice prices;
   final ProductBadge badge;
   @JsonKey(name: 'metadata')
   final Image coverImage;
 
   ProductItem(this.productID, this.name, this.isBackInStock, this.stock,
-      this.price, this.badge, this.coverImage);
+      this.prices, this.badge, this.coverImage);
 
   factory ProductItem.fromJson(Map<String, dynamic> json) =>
       _$ProductItemFromJson(json);

@@ -16,7 +16,37 @@ class ProductItemWidget extends StatelessWidget {
         children: <Widget>[
           AspectRatio(
               aspectRatio: 156 / 208,
-              child: ImgixImageWidget(imageUrl: productItem.coverImage?.coverImagePath)),
+              child: ImgixImageWidget(
+                  imageUrl: productItem.coverImage?.coverImagePath)),
+          Container(
+            margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(productItem.prices?.originalPriceFormatted ?? "0",
+                          maxLines: 1),
+                    ),
+                    SizedBox(
+                      width: 25,
+                      height: 25,
+                      child: IconButton(
+                        padding: EdgeInsets.all(0),
+                        icon: Icon(Icons.star),
+                        onPressed: () {
+                          print("ggg");
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                Text(productItem.name, maxLines: 2)
+              ],
+            ),
+          ),
         ],
       ),
     );

@@ -48,26 +48,33 @@ class FeedLandScapeWidget extends StatelessWidget {
         ),
         feedItem.productItem.isNotEmpty
             ? SizedBox(
-            height: screenWidth * (322 / 375),
-            child: ListView.separated(
-              separatorBuilder: (context, index) => Container(
-                color: Colors.white,
-                width: 6,
-              ),
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemBuilder: (context, index) => ProductItemWidget(
-                  productItem: feedItem.productItem[index]),
-              itemCount: feedItem.productItem.length,
-            ))
+                height: screenWidth * (322 / 375),
+                child: ListView.separated(
+                  separatorBuilder: (context, index) => Container(
+                    color: Colors.white,
+                    width: 6,
+                  ),
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: _onProductClick(),
+                    child: ProductItemWidget(
+                        productItem: feedItem.productItem[index]),
+                  ),
+                  itemCount: feedItem.productItem.length,
+                ))
             : SizedBox(
-          height: 0,
-        ),
+                height: 0,
+              ),
         Container(
           height: 10,
           color: Colors.grey[400],
         )
       ],
     );
+  }
+
+  _onProductClick() {
+    print("asdasd");
   }
 }
