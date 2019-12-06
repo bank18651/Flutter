@@ -5,8 +5,9 @@ import 'package:pomelo_flutter/ui/share/product_item_widget.dart';
 
 class FeedLandScapeWidget extends StatelessWidget {
   final FeedItem feedItem;
+  Function(int) callback;
 
-  FeedLandScapeWidget({Key key, @required this.feedItem}) : super(key: key);
+  FeedLandScapeWidget({Key key, @required this.feedItem, @required this.callback}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +58,7 @@ class FeedLandScapeWidget extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemBuilder: (context, index) => GestureDetector(
-                    onTap: _onProductClick(),
+                    onTap: () => _onProductClick(feedItem.productItem[index]?.productID),
                     child: ProductItemWidget(
                         productItem: feedItem.productItem[index]),
                   ),
@@ -74,7 +75,7 @@ class FeedLandScapeWidget extends StatelessWidget {
     );
   }
 
-  _onProductClick() {
-    print("asdasd");
+  _onProductClick(int) {
+    callback(int);
   }
 }

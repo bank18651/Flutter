@@ -9,7 +9,7 @@ part 'product_item.g.dart';
 @JsonSerializable()
 class ProductItem {
   @JsonKey(name: 'id_product', disallowNullValue: true)
-  final double productID;
+  final int productID;
   final String name;
   final ProductStock stock;
   @JsonKey(name: 'is_back_in_stock', defaultValue: false)

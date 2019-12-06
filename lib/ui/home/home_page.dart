@@ -30,6 +30,11 @@ class _HomePageState extends State<HomePage> {
   List<StreamSubscription> _subscriptions = List();
   bool _isFeed = true;
 
+
+  productTapCallBack(productID) {
+    _goToProductDetail(context, productID);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -96,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                       } else if (item.itemType.toLowerCase() == FeedItem.feedSqureType) {
                         return FeedSquareWidget(feedItem: item,);
                       } else if (item.itemType.toLowerCase() == FeedItem.feedLandscapeType) {
-                        return FeedLandScapeWidget(feedItem: item,);
+                        return FeedLandScapeWidget(feedItem: item, callback: productTapCallBack,);
                       } else if (item.itemType.toLowerCase() == FeedItem.feedPromotionType) {
                         return FeedPromotionWidget(feedItem: item,);
                       }
@@ -131,6 +136,11 @@ class _HomePageState extends State<HomePage> {
 
   _goToCategoryDetail(BuildContext context, int id) {
     Navigator.of(context).pushNamed(AppRoute.categoryDetail, arguments: id);
+    print(id);
+  }
+
+  _goToProductDetail(BuildContext context, int id) {
+    Navigator.of(context).pushNamed(AppRoute.product, arguments: id);
     print(id);
   }
 

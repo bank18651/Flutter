@@ -4,6 +4,7 @@ import 'package:pomelo_flutter/ui/imgix_image_widget.dart';
 
 class ProductItemWidget extends StatelessWidget {
   final ProductItem productItem;
+  Function(int) callback;
 
   ProductItemWidget({Key key, @required this.productItem}) : super(key: key);
 

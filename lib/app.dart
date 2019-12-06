@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:pomelo_flutter/ui/home/home_page.dart';
 import 'package:pomelo_flutter/ui/Category/category_detail.dart';
+import 'package:pomelo_flutter/ui/Product/product_view.dart';
 import 'di/injector.dart';
 import 'ui/login/login_page.dart';
 import 'shared_prefs_helper.dart';
@@ -58,6 +59,20 @@ class MyApp extends StatelessWidget {
           AppRoute.login: (context) => LoginPage(),
           AppRoute.home: (context) => HomePage(),
           AppRoute.categoryDetail: (context) => CategoryDetailPage(),
+          AppRoute.product: (context) => ProductPage(),
+        },
+        onGenerateRoute: (settings) {
+          if (settings.name == AppRoute.product) {
+            final int productID = settings.arguments;
+            return MaterialPageRoute(
+              builder: (context) {
+                return ProductPage(
+                  productID: 2
+                );
+              },
+            );
+          }
+          return null;
         },
     );
   }
