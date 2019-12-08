@@ -55,24 +55,25 @@ class MyApp extends StatelessWidget {
                 }
               }
             }),
-        routes: <String, WidgetBuilder>{
-          AppRoute.login: (context) => LoginPage(),
-          AppRoute.home: (context) => HomePage(),
-          AppRoute.categoryDetail: (context) => CategoryDetailPage(),
-          AppRoute.product: (context) => ProductPage(),
-        },
         onGenerateRoute: (settings) {
-          if (settings.name == AppRoute.product) {
-            final int productID = settings.arguments;
-            return MaterialPageRoute(
-              builder: (context) {
-                return ProductPage(
-                  productID: 2
-                );
-              },
-            );
+          switch (settings.name) {
+            case AppRoute.product:
+              return MaterialPageRoute(
+                builder: (context) {
+                  return ProductPage(
+                      productID: settings.arguments
+                  );
+                },
+              );
+            case AppRoute.categoryDetail:
+              return MaterialPageRoute(
+                builder: (context) {
+                  return CategoryDetailPage(categoryID: settings.arguments);
+                },
+              );
+            default:
+              return null;
           }
-          return null;
         },
     );
   }

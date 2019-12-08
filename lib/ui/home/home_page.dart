@@ -140,7 +140,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   _goToProductDetail(BuildContext context, int id) {
-    Navigator.of(context).pushNamed(AppRoute.product, arguments: id);
+    Navigator.pushNamed(context, AppRoute.product, arguments: id);
+//    Navigator.of(context).pushNamed(AppRoute.product, arguments: id);
     print(id);
   }
 
