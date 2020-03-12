@@ -2,47 +2,37 @@ import 'package:dio/dio.dart';
 import 'package:pomelo_flutter/data/authentication_token.dart';
 import 'package:pomelo_flutter/data/source/users_repository.dart';
 import 'package:pomelo_flutter/shared_prefs_helper.dart';
+import 'package:pomelo_flutter/ui/base_view_model.dart';
 import 'package:pomelo_flutter/ui/login/login_navigator.dart';
 import 'package:rxdart/rxdart.dart';
 
-class LoginViewModel {
+class LoginViewModel extends BaseViewModel {
   final LoginNavigator _loginNavigator;
 
   final UsersRepository _usersRepository;
-  
+
   final SharedPrefsHelper _sharedPrefsHelper;
 
-  BehaviorSubject<bool> _loadingVisibility;
-
-  PublishSubject<String> _errorMessage;
-
-  Stream<bool> get loadingVisibility => _loadingVisibility;
-
-  Stream<String> get errorMessage => _errorMessage;
-
-  LoginViewModel(this._loginNavigator, this._usersRepository, this._sharedPrefsHelper) {
-    _loadingVisibility = BehaviorSubject.seeded(false);
-    _errorMessage = PublishSubject();
-  }
+  LoginViewModel(
+      this._loginNavigator, this._usersRepository, this._sharedPrefsHelper);
 
   Future<void> handleLoginClicked(String username, String password) async {
     if (username.isEmpty || password.isEmpty) {
       return;
     }
 
-    _errorMessage.add(null);
-    _loadingVisibility.add(true);
+    addErrorMessage(null);
+    addLoadVisibility(true);
 
     print("handleLoginClicked");
   }
 
   Future<void> handleGuestModeClicked() async {
-    _errorMessage.add(null);
-    _loadingVisibility.add(true);
+    addErrorMessage(null);
+    addLoadVisibility(true);
 
     try {
-      final AuthenticationToken authToken =
-          await _usersRepository.guestMode();
+      final AuthenticationToken authToken = await _usersRepository.guestMode();
 
       _sharedPrefsHelper.saveAccessToken(authToken.accessToken);
       _loginNavigator.navigateToHomePage();
@@ -50,13 +40,12 @@ class LoginViewModel {
       String errorMessage =
           e.response?.data == null ? null : e.response.data['message'];
       if (errorMessage?.isNotEmpty == true) {
-        _errorMessage.add(errorMessage);
+        addErrorMessage(errorMessage);
       } else {
-        _errorMessage.add(e.message);
+        addErrorMessage(e.message);
       }
     } finally {
-      _loadingVisibility.add(false);
+      addLoadVisibility(false);
     }
   }
-
 }

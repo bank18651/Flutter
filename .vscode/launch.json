@@ -3,12 +3,13 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [
+    "configurations": [        
+        
         {
             "name": "Flutter Labs",
             "type": "dart",
             "request": "launch",
-            "program": "/Users/bank-mackbook/Documents/pomelo_flutter/lib/main_labs.dart"
+            "program": "/Users/bank-mackbook/Documents/pomelo-flutter/lib/main_labs.dart"
         },
     ]
 }

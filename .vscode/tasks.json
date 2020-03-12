@@ -1,0 +1,27 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Flutter build_runner Json",
+            "type": "shell",
+            "command": "flutter packages pub run build_runner build"
+        },
+        {
+            "label": "Flutter flavor labs",
+            "type": "shell",
+            "command": "flutter run --flavor labs --debug"
+        },
+        {
+            "label": "Flutter flavor staging",
+            "type": "shell",
+            "command": "flutter run --flavor staging"
+        },
+        {
+            "label": "Flutter flavor prod",
+            "type": "shell",
+            "command": "flutter run --flavor prod"
+        }
+    ]
+}
